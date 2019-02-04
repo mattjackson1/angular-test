@@ -44,28 +44,44 @@
 	</header>
 	
 	<section>
-		<form name="myForm" ng-app="myApp" ng-controller="myCtrl">
-		
-			<md-input-container>
-			  <label>Start date</label>
-			  <input type="text" name="start" ng-model="start" ng-pattern="regex" required/>
-			</md-input-container>
+		<md-card>
+			<form name="myForm" ng-app="myApp" ng-controller="myCtrl">
 			
-			<md-input-container>
-			  <label>End date</label>
-			  <input type="text" name="end" ng-model="end" ng-pattern="regex" required/>
-			</md-input-container>
-			
-			<md-button ng-click="replot()" ng-disabled="myForm.$invalid" class="md-button md-raised">Re-plot</md-button>
-			<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised">Reset form</md-button>
-			
-			<p ng-show="myForm.$invalid" class="md-warn"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
-			
-		</form>
+				<md-input-container>
+					<label>Start date</label>
+					<md-datepicker
+						ng-model="start"
+						md-placeholder="Enter start date"
+						md-open-on-focus=""
+						md-current-view="year"
+						md-mode="month">
+					</md-datepicker>
+				</md-input-container>
+				
+				<md-input-container>
+					<label>End date</label>
+					<md-datepicker
+						ng-model="end"
+						md-placeholder="Enter end date"
+						md-open-on-focus=""
+						md-current-view="year"
+						md-mode="month">
+					</md-datepicker>
+				</md-input-container>
+				
+				<md-button ng-click="replot()" ng-disabled="myForm.$invalid" class="md-button md-raised">Re-plot</md-button>
+				<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised">Reset form</md-button>
+				
+				<p ng-show="myForm.$invalid" class="md-warn"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
+				
+			</form>
+		</md-card>
 	</section>
 
 	<section>
-		<canvas id="line-chart" width="800" height="450"></canvas>
+		<md-card>
+			<canvas id="line-chart" width="800" height="450"></canvas>
+		</md-card>
 	</section>
 
 </md-content>
@@ -77,7 +93,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
 <!-- Charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!-- Moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 	
 <script>
 	// *****************************************************************
@@ -157,11 +175,35 @@
 	//declare mutable ng app [with 'material' dependencies]
 	let app = angular.module('myApp', ['ngMaterial','ngMessages']);
 	
+	app.config(function($mdDateLocaleProvider) {
+		// return string representation of the provided date
+		$mdDateLocaleProvider.formatDate = function(date) {
+		  return date ? moment(date).format('MMM YYYY') : '';
+		};
+
+		/**
+		 * @param dateString {string} string that can be converted to a Date
+		 * @returns {Date} JavaScript Date object created from the provided dateString
+		 */
+		$mdDateLocaleProvider.parseDate = function(dateString) {
+		  var m = moment(dateString, 'MMM YYYY', true);
+		  return m.isValid() ? m.toDate() : new Date(NaN);
+		};
+
+		// Check if the date string is complete enough to parse
+		$mdDateLocaleProvider.isDateComplete = function(dateString) {
+		  dateString = dateString.trim();
+		  // Look for two chunks of content (either numbers or text) separated by delimiters.
+		  var re = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ .,]+|[/-]))([a-zA-Z]{3,}|[0-9]{1,4})/;
+		  return re.test(dateString);
+		};
+	});
+	
 	app.controller('myCtrl', function($scope, $http) {
 		//use reset function to write initial values
 		$scope.reset = () => {
-			$scope.start="Jan 1910";
-			$scope.end="Dec 2017";
+			$scope.start = "Jan 1910";
+			$scope.end = "Dec 2017";
 		}
 		$scope.reset();
 		
@@ -169,9 +211,6 @@
 		let endPoint = `https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice/${metric}-${region}.json`;
 		// TODO:- These variables need to be scope attributes, so they can be changed
 		// then later, the $http service needs to be defined, so it can be called on any event, not just run once
-		
-		//validate the inputs against a (flawed) regex
-		$scope.regex = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (19|20)\d{2}/;
 		
 		//service to request a promise of JSON data, which is parsed and stored as the response object
 		$http
@@ -195,10 +234,16 @@
 		})
 		.then(() => {
 			console.log(`chart plotted with ${myLineChart.data.labels.length} points`);
-		});
+		})
+		.catch((error) => {console.log(error)});
 		
-		//define function to replot graph
+		
+		//function expression to replot graph
 		$scope.replot = () => {
+			//first, convert our date objects to strings			
+			$scope.start = moment($scope.start).format('MMM YYYY');
+			$scope.end = moment($scope.end).format('MMM YYYY');
+		
 			let startIndex = allDates.indexOf($scope.start);
 			let endIndex = allDates.indexOf($scope.end);
 			//slice up the data arrays
