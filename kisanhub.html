@@ -58,7 +58,7 @@
 				</md-card-title-text>
 			</md-card-title>
 			<md-card-content>
-				<form name="myForm" ng-app="myApp" ng-controller="myCtrl" ng-cloak layout="column" layout-align="center center">
+				<form name="myForm" ng-app="myApp" ng-controller="myCtrl as ctrl" ng-cloak layout="column" layout-align="center center">
 					<div layout-gt-sm="row" layout-sm="column">
 						<div layout="row">
 							<md-input-container>
@@ -68,7 +68,9 @@
 									md-placeholder="Enter start date"
 									md-open-on-focus=""
 									md-current-view="multi-year"
-									md-mode="month">
+									md-mode="month"
+									md-min-date="ctrl.minDate"
+									md-max-date="ctrl.maxDate">
 								</md-datepicker>
 							</md-input-container>
 							
@@ -79,7 +81,9 @@
 									md-placeholder="Enter end date"
 									md-open-on-focus=""
 									md-current-view="multi-yearyear"
-									md-mode="month">
+									md-mode="month"
+									md-min-date="ctrl.minDate"
+									md-max-date="ctrl.maxDate">
 								</md-datepicker>
 							</md-input-container>
 						</div>
@@ -210,12 +214,19 @@
 	});
 	
 	app.controller('myCtrl', function($scope, $http) {
+	
+		// Prevent the datepickers from exceeding the range of our data
+		// TODO:- set this based on the data received
+		this.minDate = new Date(1910,0);
+		this.maxDate = new Date(2017,11);
+		
 		//use reset function to write initial values
 		$scope.reset = () => {
 			$scope.start = "Jan 1910";
 			$scope.end = "Dec 2017";
 		}
 		$scope.reset();
+
 		
 		let [region, metric] = ['UK', 'Tmax'];
 		let endPoint = `https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice/${metric}-${region}.json`;
@@ -230,6 +241,7 @@
 			//then after promise is fulfilled, ensure we have an array of data
 			//so we can safely call array methods on it
 			if(response.status === 200 && angular.isArray(response.data)) {
+			
 				allDates = response.data.map(e =>  prettyDates[e.month] + ' ' + e.year);
 				maxTemps = response.data.map(e => e.value);
 				
@@ -237,6 +249,7 @@
 				myLineChart.data.labels = allDates;
 				myLineChart.data.datasets[0].data = maxTemps;
 				myLineChart.update();
+				
 			} else {
 				alert("Sorry there seems to have been an error retrieving data from the server. Please reload the page.");
 			}
@@ -246,7 +259,6 @@
 			console.log(`chart plotted with ${myLineChart.data.labels.length} points`);
 		})
 		.catch((error) => {console.log(error)});
-		
 		
 		//function expression to replot graph
 		$scope.replot = () => {
