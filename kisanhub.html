@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="shortcut icon" href="https://www.kisanhub.com/static/favicon.ico">
-  <style>
-	header {
-		text-align: center;
-	}
-	md-card-title {
-		text-align: center;
-	}
-	.kisanhub{
-		background-color: #C6D32D;
-		color: #fff;
-	}
-	md-input-container {
-		text-align: left;
-	}
-	.md-button mat-icon {
-		vertical-align: middle;
-	}
-  </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+	<!-- Material Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="shortcut icon" href="https://www.kisanhub.com/static/favicon.ico">
+	<style>
+		header {
+			text-align: center;
+		}
+		md-card-title {
+			text-align: center;
+		}
+		.kisanhub{
+			background-color: #C6D32D;
+			color: #fff;
+		}
+		md-input-container {
+			text-align: left;
+		}
+		.md-button mat-icon {
+			vertical-align: middle;
+		}
+	</style>
 </head>
 <body class="layout-margin">
 	<header>
@@ -33,72 +33,72 @@
 			Built by Matt Jackson, experimenting with Angular
 			<svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
 				<g id="Layer_1">
-				  <path d="M 50 0 L 100 14 L 92 80 L 50 100 L 8 80 L 0 14 Z" fill="#b2b2b2"/>
-				  <path d="M 50 5 L 6 18 L 13.5 77 L 50 94 Z" fill="#E42939" md-fill-level="700"/>
-				  <path d="M 50 5 L 94 18 L 86.5 77 L 50 94 Z" fill="#B72833" md-fill-level="900"/>
-				  <path d="M 50 7 L 83 75 L 72 75 L 65 59 L 50 59 L 50 50 L 61 50 L 50 26 Z" fill="#b2b2b2"/>
-				  <path d="M 50 7 L 17 75 L 28 75 L 35 59 L 50 59 L 50 50 L 39 50 L 50 26 Z" fill="#fff"/>
+				  <path d="M 50 0 L 100 14 L 92 80 L 50 100 L 8 80 L 0 14 Z" fill="#b2b2b2"></path>
+				  <path d="M 50 5 L 6 18 L 13.5 77 L 50 94 Z" fill="#E42939" md-fill-level="700"></path>
+				  <path d="M 50 5 L 94 18 L 86.5 77 L 50 94 Z" fill="#B72833" md-fill-level="900"></path>
+				  <path d="M 50 7 L 83 75 L 72 75 L 65 59 L 50 59 L 50 50 L 61 50 L 50 26 Z" fill="#b2b2b2"></path>
+				  <path d="M 50 7 L 17 75 L 28 75 L 35 59 L 50 59 L 50 50 L 39 50 L 50 26 Z" fill="#fff"></path>
 				</g>
 				<g id="Layer_1">
-				  <path d="M 50 0 L 100 14 L 92 80 L 50 100 L 8 80 L 0 14 Z" fill="#b2b2b2"/>
-				  <path d="M 50 5 L 6 18 L 13.5 77 L 50 94 Z" fill="#E42939" md-fill-level="700"/>
-				  <path d="M 50 5 L 94 18 L 86.5 77 L 50 94 Z" fill="#B72833" md-fill-level="900"/>
-				  <path d="M 50 7 L 83 75 L 72 75 L 65 59 L 50 59 L 50 50 L 61 50 L 50 26 Z" fill="#b2b2b2"/>
-				  <path d="M 50 7 L 17 75 L 28 75 L 35 59 L 50 59 L 50 50 L 39 50 L 50 26 Z" fill="#fff"/>
+				  <path d="M 50 0 L 100 14 L 92 80 L 50 100 L 8 80 L 0 14 Z" fill="#b2b2b2"></path>
+				  <path d="M 50 5 L 6 18 L 13.5 77 L 50 94 Z" fill="#E42939" md-fill-level="700"></path>
+				  <path d="M 50 5 L 94 18 L 86.5 77 L 50 94 Z" fill="#B72833" md-fill-level="900"></path>
+				  <path d="M 50 7 L 83 75 L 72 75 L 65 59 L 50 59 L 50 50 L 61 50 L 50 26 Z" fill="#b2b2b2"></path>
+				  <path d="M 50 7 L 17 75 L 28 75 L 35 59 L 50 59 L 50 50 L 39 50 L 50 26 Z" fill="#fff"></path>
 				</g>
 			</svg>
 		</h2>
 	</header>
-	
-	<section>
-		<md-card>
-			<md-card-title class="kisanhub">
-				<md-card-title-text>
-					<span class="md-headline">Please select different start and end dates, and re-plot the graph</span>
-				</md-card-title-text>
-			</md-card-title>
-			<md-card-content>
-				<form name="myForm" ng-app="myApp" ng-controller="myCtrl as ctrl" ng-cloak layout="column" layout-align="center center">
-					<div layout-gt-sm="row" layout-sm="column">
-						<div layout="row">
-							<md-input-container>
-								<label>Start date</label>
-								<md-datepicker
-									ng-model="start"
-									md-placeholder="Enter start date"
-									md-open-on-focus=""
-									md-current-view="multi-year"
-									md-mode="month"
-									md-min-date="ctrl.minDate"
-									md-max-date="ctrl.maxDate">
-								</md-datepicker>
-							</md-input-container>
-							
-							<md-input-container>
-								<label>End date</label>
-								<md-datepicker
-									ng-model="end"
-									md-placeholder="Enter end date"
-									md-open-on-focus=""
-									md-current-view="multi-yearyear"
-									md-mode="month"
-									md-min-date="ctrl.minDate"
-									md-max-date="ctrl.maxDate">
-								</md-datepicker>
-							</md-input-container>
+	<md-content>
+		<section>
+			<md-card>
+				<md-card-title class="kisanhub">
+					<md-card-title-text>
+						<span class="md-headline">Please select different start and end dates, and re-plot the graph</span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-content>
+					<form name="myForm" ng-app="myApp" ng-controller="myCtrl as ctrl" ng-cloak layout="column" layout-align="center center">
+						<div layout-gt-sm="row" layout-sm="column">
+							<div layout="row">
+								<md-input-container>
+									<label>Start date</label>
+									<md-datepicker
+										ng-model="start"
+										md-placeholder="Enter start date"
+										md-open-on-focus=""
+										md-current-view="multi-year"
+										md-mode="month"
+										md-min-date="ctrl.minDate"
+										md-max-date="ctrl.maxDate">
+									</md-datepicker>
+								</md-input-container>
+								
+								<md-input-container>
+									<label>End date</label>
+									<md-datepicker
+										ng-model="end"
+										md-placeholder="Enter end date"
+										md-open-on-focus=""
+										md-current-view="multi-yearyear"
+										md-mode="month"
+										md-min-date="ctrl.minDate"
+										md-max-date="ctrl.maxDate">
+									</md-datepicker>
+								</md-input-container>
+							</div>
+							<div flex>
+								<md-button ng-click="replot()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">show_chart</mat-icon> Re-plot</md-button>
+								<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon> Reset form</md-button>
+							</div>
 						</div>
-						<div flex>
-							<md-button ng-click="replot()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">show_chart</mat-icon> Re-plot</md-button>
-							<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon> Reset form</md-button>
-						</div>
-					</div>
-					
-					<p flex ng-show="myForm.$invalid"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
-					
-				</form>
-			</md-card-content>
-		</md-card>
-	</section>
+						
+						<p flex ng-show="myForm.$invalid"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
+						
+					</form>
+				</md-card-content>
+			</md-card>
+		</section>
 
 	<section>
 		<md-card>
@@ -106,177 +106,178 @@
 		</md-card>
 	</section>
 
-</md-content>
+	</md-content>
 
-<!-- Angular Material requires Angular.js Libraries -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
-<!-- Charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<!-- Moment -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
-	
-<script>
-	// *****************************************************************
-	//  I chose to use ES6 without a transpiler - so please don't use IE!
-	// *****************************************************************
-	const prettyDates = {
-		'1':'Jan',
-		'2':'Feb',
-		'3':'Mar',
-		'4':'Apr',
-		'5':'May',
-		'6':'Jun',
-		'7':'Jul',
-		'8':'Aug',
-		'9':'Sep',
-		'10':'Oct',
-		'11':'Nov',
-		'12':'Dec'
-	};
-	const chartCanvas = document.getElementById("line-chart");
-	let allDates = [];
-	let maxTemps = [];
-	
-	//declare chart object with no data
-	let myLineChart = new Chart(chartCanvas, {
-		type: 'line',
-		data: {
-			labels: allDates,
-			datasets: [{ 
-				data: maxTemps,
-				label: "Max Temp",
-				borderColor: "#C6D32D",
-				fill: false
-			}]
-		},
-		options: {
-			legend: {
-				display: false
-			},
-			title: {
-				display: true,
-				text: 'Max temperatures in the UK'
-			},
-			scales: {
-				xAxes: [{
-					ticks: {
-						callback: function(dataLabel, index) {
-							// Hide the label of every 2nd dataset. return null to hide the grid line too
-							return index % 2 === 0 ? dataLabel : '';
-						}
-					},
-					scaleLabel: {
-						display: true,
-						labelString: 'Date'
-					}
-				}],
-				yAxes: [{
-					scaleLabel: {
-						display: true,
-						labelString: 'Temp (deg C)'
-					}
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+	<!-- Charts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<!-- Moment -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+		
+	<script>
+		// *****************************************************************
+		//  I chose to use ES6 without a transpiler - so please don't use IE!
+		// *****************************************************************
+		const prettyDates = {
+			'1':'Jan',
+			'2':'Feb',
+			'3':'Mar',
+			'4':'Apr',
+			'5':'May',
+			'6':'Jun',
+			'7':'Jul',
+			'8':'Aug',
+			'9':'Sep',
+			'10':'Oct',
+			'11':'Nov',
+			'12':'Dec'
+		};
+		const chartCanvas = document.getElementById("line-chart");
+		let allDates = [];
+		let maxTemps = [];
+		
+		//declare chart object with no data
+		let myLineChart = new Chart(chartCanvas, {
+			type: 'line',
+			data: {
+				labels: allDates,
+				datasets: [{ 
+					data: maxTemps,
+					label: "Max Temp",
+					borderColor: "#C6D32D",
+					fill: false
 				}]
 			},
-			layout: {
-				padding: {
-					left: 50,
-					right: 50,
-					top: 0,
-					bottom: 0
+			options: {
+				legend: {
+					display: false
+				},
+				title: {
+					display: true,
+					text: 'Max temperatures in the UK'
+				},
+				scales: {
+					xAxes: [{
+						ticks: {
+							callback: function(dataLabel, index) {
+								// Hide the label of every 2nd dataset. return null to hide the grid line too
+								return index % 2 === 0 ? dataLabel : '';
+							}
+						},
+						scaleLabel: {
+							display: true,
+							labelString: 'Date'
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'Temp (deg C)'
+						}
+					}]
+				},
+				layout: {
+					padding: {
+						left: 50,
+						right: 50,
+						top: 0,
+						bottom: 0
+					}
 				}
 			}
-		}
-	});
-	//declare mutable ng app [with 'material' dependencies]
-	let app = angular.module('myApp', ['ngMaterial','ngMessages']);
-	
-	app.config(function($mdDateLocaleProvider) {
-		// return string representation of the provided date
-		$mdDateLocaleProvider.formatDate = function(date) {
-		  return date ? moment(date).format('MMM YYYY') : '';
-		};
-		// Convert dateString to a Date object
-		$mdDateLocaleProvider.parseDate = function(dateString) {
-		  var m = moment(dateString, 'MMM YYYY', true);
-		  return m.isValid() ? m.toDate() : new Date(NaN);
-		};
-		// ONLY parse when the date string is complete enough
-		$mdDateLocaleProvider.isDateComplete = function(dateString) {
-		  dateString = dateString.trim();
-		  // Look for two chunks of content (either numbers or text) separated by delimiters.
-		  var regex = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ .,]+|[/-]))([a-zA-Z]{3,}|[0-9]{1,4})/;
-		  return regex.test(dateString);
-		};
-	});
-	
-	app.controller('myCtrl', function($scope, $http) {
-	
-		// Prevent the datepickers from exceeding the range of our data
-		// TODO:- set this based on the data received
-		this.minDate = new Date(1910,0);
-		this.maxDate = new Date(2017,11);
+		});
 		
-		//use reset function to write initial values
-		$scope.reset = () => {
-			$scope.start = "Jan 1910";
-			$scope.end = "Dec 2017";
-		}
-		$scope.reset();
+		//declare mutable ng app [with 'material' dependencies]
+		let app = angular.module('myApp', ['ngMaterial','ngMessages']);
+		
+		app.config(function($mdDateLocaleProvider) {
+			// return string representation of the provided date
+			$mdDateLocaleProvider.formatDate = function(date) {
+			  return date ? moment(date).format('MMM YYYY') : '';
+			};
+			// Convert dateString to a Date object
+			$mdDateLocaleProvider.parseDate = function(dateString) {
+			  var m = moment(dateString, 'MMM YYYY', true);
+			  return m.isValid() ? m.toDate() : new Date(NaN);
+			};
+			// ONLY parse when the date string is complete enough
+			$mdDateLocaleProvider.isDateComplete = function(dateString) {
+			  dateString = dateString.trim();
+			  // Look for two chunks of content (either numbers or text) separated by delimiters.
+			  var regex = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ .,]+|[/-]))([a-zA-Z]{3,}|[0-9]{1,4})/;
+			  return regex.test(dateString);
+			};
+		});
+		
+		app.controller('myCtrl', function($scope, $http, $log) {
+		
+			// Prevent the datepickers from exceeding the range of our data
+			// TODO:- set this based on the data received
+			this.minDate = new Date(1910,0);
+			this.maxDate = new Date(2017,11);
+			
+			//use reset function to write initial values
+			$scope.reset = () => {
+				$scope.start = this.minDate;
+				$scope.end = this.maxDate;
+			};
+			$scope.reset();
 
-		
-		let [region, metric] = ['UK', 'Tmax'];
-		let endPoint = `https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice/${metric}-${region}.json`;
-		// TODO:- These variables need to be scope attributes, so they can be changed
-		// then later, the $http service needs to be defined, so it can be called on any event, not just run once
-		
-		//service to request a promise of JSON data, which is parsed and stored as the response object
-		$http
-		.get(endPoint)
-		.then(response => {
-			console.log(`Endpoint response status: ${response.statusText} (${response.status})`);
-			//then after promise is fulfilled, ensure we have an array of data
-			//so we can safely call array methods on it
-			if(response.status === 200 && angular.isArray(response.data)) {
 			
-				allDates = response.data.map(e =>  prettyDates[e.month] + ' ' + e.year);
-				maxTemps = response.data.map(e => e.value);
-				
-				//now update our chart
-				myLineChart.data.labels = allDates;
-				myLineChart.data.datasets[0].data = maxTemps;
-				myLineChart.update();
-				
-			} else {
-				alert("Sorry there seems to have been an error retrieving data from the server. Please reload the page.");
-			}
+			let [region, metric] = ['UK', 'Tmax'];
+			let endPoint = `https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice/${metric}-${region}.json`;
+			// TODO:- These variables need to be scope attributes, so they can be changed
+			// then later, the $http service needs to be defined, so it can be called on any event, not just run once
 			
-		})
-		.then(() => {
-			console.log(`chart plotted with ${myLineChart.data.labels.length} points`);
-		})
-		.catch((error) => {console.log(error)});
-		
-		//function expression to replot graph
-		$scope.replot = () => {
-			//first, convert our date objects to strings			
-			$scope.start = moment($scope.start).format('MMM YYYY');
-			$scope.end = moment($scope.end).format('MMM YYYY');
-		
-			let startIndex = allDates.indexOf($scope.start);
-			let endIndex = allDates.indexOf($scope.end);
-			//slice up the data arrays
-			myLineChart.data.labels = allDates.slice(startIndex, endIndex);
-			myLineChart.data.datasets[0].data = maxTemps.slice(startIndex, endIndex);
-			//redraw the chart
-			myLineChart.update();		
-		};
-		
-	});
-</script>
+			//service to request a promise of JSON data, which is parsed and stored as the response object
+			$http
+			.get(endPoint)
+			.then(response => {
+				$log.info(`Endpoint response status: ${response.statusText} (${response.status})`);
+				//then after promise is fulfilled, ensure we have an array of data
+				//so we can safely call array methods on it
+				if(response.status === 200 && angular.isArray(response.data)) {
+				
+					allDates = response.data.map(e =>  prettyDates[e.month] + ' ' + e.year);
+					maxTemps = response.data.map(e => e.value);
+					
+					//now update our chart
+					myLineChart.data.labels = allDates;
+					myLineChart.data.datasets[0].data = maxTemps;
+					myLineChart.update();
+					
+				} else {
+					alert("Sorry there seems to have been an error retrieving data from the server. Please reload the page.");
+				}
+				
+			})
+			.then(() => {
+				$log.info(`chart plotted with ${myLineChart.data.labels.length} points`);
+			})
+			.catch((error) => {$log.info(error)});
+			
+			//function expression to replot graph
+			$scope.replot = () => {
+				//first, convert our date objects to strings			
+				const startString = moment($scope.start).format('MMM YYYY');
+				const endString = moment($scope.end).format('MMM YYYY');
+			
+				const startIndex = allDates.indexOf(startString);
+				const endIndex = allDates.indexOf(endString);
+				//slice up the data arrays
+				myLineChart.data.labels = allDates.slice(startIndex, endIndex);
+				myLineChart.data.datasets[0].data = maxTemps.slice(startIndex, endIndex);
+				//redraw the chart
+				myLineChart.update();		
+			};
+			
+		});
+	</script>
 
 </body>
 </html>
