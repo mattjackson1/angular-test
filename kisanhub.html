@@ -4,18 +4,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Angular Material style sheet -->
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
-  <!-- Icons -->
+  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="shortcut icon" href="https://www.kisanhub.com/static/favicon.ico">
   <style>
-	header, form{
-		text-align: center
+	header {
+		text-align: center;
 	}
-	form > *{
-		text-align: left;
+	md-card-title {
+		text-align: center;
+	}
+	.kisanhub{
+		background-color: #C6D32D;
+		color: #fff;
 	}
 	md-input-container {
-		vertical-align: top;
+		text-align: left;
+	}
+	.md-button mat-icon {
+		vertical-align: middle;
 	}
   </style>
 </head>
@@ -45,36 +52,47 @@
 	
 	<section>
 		<md-card>
-			<form name="myForm" ng-app="myApp" ng-controller="myCtrl">
-			
-				<md-input-container>
-					<label>Start date</label>
-					<md-datepicker
-						ng-model="start"
-						md-placeholder="Enter start date"
-						md-open-on-focus=""
-						md-current-view="year"
-						md-mode="month">
-					</md-datepicker>
-				</md-input-container>
-				
-				<md-input-container>
-					<label>End date</label>
-					<md-datepicker
-						ng-model="end"
-						md-placeholder="Enter end date"
-						md-open-on-focus=""
-						md-current-view="year"
-						md-mode="month">
-					</md-datepicker>
-				</md-input-container>
-				
-				<md-button ng-click="replot()" ng-disabled="myForm.$invalid" class="md-button md-raised">Re-plot</md-button>
-				<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised">Reset form</md-button>
-				
-				<p ng-show="myForm.$invalid" class="md-warn"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
-				
-			</form>
+			<md-card-title class="kisanhub">
+				<md-card-title-text>
+					<span class="md-headline">Please select different start and end dates, and re-plot the graph</span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-content>
+				<form name="myForm" ng-app="myApp" ng-controller="myCtrl" ng-cloak layout="column" layout-align="center center">
+					<div layout-gt-sm="row" layout-sm="column">
+						<div layout="row">
+							<md-input-container>
+								<label>Start date</label>
+								<md-datepicker
+									ng-model="start"
+									md-placeholder="Enter start date"
+									md-open-on-focus=""
+									md-current-view="multi-year"
+									md-mode="month">
+								</md-datepicker>
+							</md-input-container>
+							
+							<md-input-container>
+								<label>End date</label>
+								<md-datepicker
+									ng-model="end"
+									md-placeholder="Enter end date"
+									md-open-on-focus=""
+									md-current-view="multi-yearyear"
+									md-mode="month">
+								</md-datepicker>
+							</md-input-container>
+						</div>
+						<div flex>
+							<md-button ng-click="replot()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">show_chart</mat-icon> Re-plot</md-button>
+							<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon> Reset form</md-button>
+						</div>
+					</div>
+					
+					<p flex ng-show="myForm.$invalid"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">warning</mat-icon> Both dates must be filled in, and be in the valid date format (mmm yyyy)</p>
+					
+				</form>
+			</md-card-content>
 		</md-card>
 	</section>
 
@@ -101,7 +119,6 @@
 	// *****************************************************************
 	//  I chose to use ES6 without a transpiler - so please don't use IE!
 	// *****************************************************************
-
 	const prettyDates = {
 		'1':'Jan',
 		'2':'Feb',
@@ -116,7 +133,6 @@
 		'11':'Nov',
 		'12':'Dec'
 	};
-
 	const chartCanvas = document.getElementById("line-chart");
 	let allDates = [];
 	let maxTemps = [];
@@ -171,7 +187,6 @@
 			}
 		}
 	});
-
 	//declare mutable ng app [with 'material' dependencies]
 	let app = angular.module('myApp', ['ngMaterial','ngMessages']);
 	
@@ -180,22 +195,17 @@
 		$mdDateLocaleProvider.formatDate = function(date) {
 		  return date ? moment(date).format('MMM YYYY') : '';
 		};
-
-		/**
-		 * @param dateString {string} string that can be converted to a Date
-		 * @returns {Date} JavaScript Date object created from the provided dateString
-		 */
+		// Convert dateString to a Date object
 		$mdDateLocaleProvider.parseDate = function(dateString) {
 		  var m = moment(dateString, 'MMM YYYY', true);
 		  return m.isValid() ? m.toDate() : new Date(NaN);
 		};
-
-		// Check if the date string is complete enough to parse
+		// ONLY parse when the date string is complete enough
 		$mdDateLocaleProvider.isDateComplete = function(dateString) {
 		  dateString = dateString.trim();
 		  // Look for two chunks of content (either numbers or text) separated by delimiters.
-		  var re = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ .,]+|[/-]))([a-zA-Z]{3,}|[0-9]{1,4})/;
-		  return re.test(dateString);
+		  var regex = /^(([a-zA-Z]{3,}|[0-9]{1,4})([ .,]+|[/-]))([a-zA-Z]{3,}|[0-9]{1,4})/;
+		  return regex.test(dateString);
 		};
 	});
 	
