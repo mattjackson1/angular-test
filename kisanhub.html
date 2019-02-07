@@ -54,7 +54,7 @@
 			<md-card>
 				<md-card-title class="kisanhub">
 					<md-card-title-text>
-						<span class="md-headline">Please select different start and end dates, and re-plot the graph</span>
+						<span class="md-headline">Please select different start and end dates, and re-plot the chart</span>
 					</md-card-title-text>
 				</md-card-title>
 				<md-card-content>
@@ -89,7 +89,7 @@
 							</div>
 							<div flex>
 								<md-button ng-click="replot()" ng-disabled="myForm.$invalid || myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">show_chart</mat-icon> Re-plot</md-button>
-								<md-button ng-click="reset()" ng-disabled="myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon> Reset form</md-button>
+								<md-button ng-click="reset();replot()" ng-disabled="myForm.$pristine" class="md-button md-raised"><mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon> Reset form</md-button>
 							</div>
 						</div>
 						
@@ -100,11 +100,11 @@
 			</md-card>
 		</section>
 
-	<section>
-		<md-card>
-			<canvas id="line-chart" width="800" height="450"></canvas>
-		</md-card>
-	</section>
+		<section>
+			<md-card>
+				<canvas id="line-chart" width="800" height="450"></canvas>
+			</md-card>
+		</section>
 
 	</md-content>
 
@@ -123,75 +123,8 @@
 		// *****************************************************************
 		//  I chose to use ES6 without a transpiler - so please don't use IE!
 		// *****************************************************************
-		const prettyDates = {
-			'1':'Jan',
-			'2':'Feb',
-			'3':'Mar',
-			'4':'Apr',
-			'5':'May',
-			'6':'Jun',
-			'7':'Jul',
-			'8':'Aug',
-			'9':'Sep',
-			'10':'Oct',
-			'11':'Nov',
-			'12':'Dec'
-		};
-		const chartCanvas = document.getElementById("line-chart");
-		let allDates = [];
-		let maxTemps = [];
 		
-		//declare chart object with no data
-		let myLineChart = new Chart(chartCanvas, {
-			type: 'line',
-			data: {
-				labels: allDates,
-				datasets: [{ 
-					data: maxTemps,
-					label: "Max Temp",
-					borderColor: "#C6D32D",
-					fill: false
-				}]
-			},
-			options: {
-				legend: {
-					display: false
-				},
-				title: {
-					display: true,
-					text: 'Max temperatures in the UK'
-				},
-				scales: {
-					xAxes: [{
-						ticks: {
-							callback: function(dataLabel, index) {
-								// Hide the label of every 2nd dataset. return null to hide the grid line too
-								return index % 2 === 0 ? dataLabel : '';
-							}
-						},
-						scaleLabel: {
-							display: true,
-							labelString: 'Date'
-						}
-					}],
-					yAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: 'Temp (deg C)'
-						}
-					}]
-				},
-				layout: {
-					padding: {
-						left: 50,
-						right: 50,
-						top: 0,
-						bottom: 0
-					}
-				}
-			}
-		});
-		
+
 		//declare mutable ng app [with 'material' dependencies]
 		let app = angular.module('myApp', ['ngMaterial','ngMessages']);
 		
@@ -215,6 +148,62 @@
 		});
 		
 		app.controller('myCtrl', function($scope, $http, $log) {
+		
+			const chartCanvas = document.getElementById("line-chart");
+			let allDates = [];
+			let maxTemps = [];
+			
+			//declare chart object with no data
+			let myLineChart = new Chart(chartCanvas, {
+				type: 'line',
+				data: {
+					labels: allDates,
+					datasets: [{ 
+						data: maxTemps,
+						label: "Max Temp",
+						borderColor: "#C6D32D",
+						fill: false
+					}]
+				},
+				options: {
+					legend: {
+						display: false
+					},
+					title: {
+						display: true,
+						text: 'Monthly maximum temperatures in the UK'
+					},
+					scales: {
+						xAxes: [{
+							ticks: {
+								callback: function(dataLabel, index) {
+									// Hide the label of every 2nd dataset. return null to hide the grid line too
+									return index % 2 === 0 ? dataLabel : '';
+								}
+							},
+							scaleLabel: {
+								display: true,
+								labelString: 'Date'
+							}
+						}],
+						yAxes: [{
+							scaleLabel: {
+								display: true,
+								labelString: 'Temp (deg C)'
+							}
+						}]
+					},
+					layout: {
+						padding: {
+							left: 50,
+							right: 50,
+							top: 0,
+							bottom: 0
+						}
+					}
+				}
+			});
+			
 		
 			// Prevent the datepickers from exceeding the range of our data
 			// TODO:- set this based on the data received
@@ -242,6 +231,20 @@
 				//then after promise is fulfilled, ensure we have an array of data
 				//so we can safely call array methods on it
 				if(response.status === 200 && angular.isArray(response.data)) {
+					const prettyDates = {
+						'1':'Jan',
+						'2':'Feb',
+						'3':'Mar',
+						'4':'Apr',
+						'5':'May',
+						'6':'Jun',
+						'7':'Jul',
+						'8':'Aug',
+						'9':'Sep',
+						'10':'Oct',
+						'11':'Nov',
+						'12':'Dec'
+					};
 				
 					allDates = response.data.map(e =>  prettyDates[e.month] + ' ' + e.year);
 					maxTemps = response.data.map(e => e.value);
@@ -261,14 +264,14 @@
 			})
 			.catch((error) => {$log.info(error)});
 			
-			//function expression to replot graph
+			//function expression to replot chart
 			$scope.replot = () => {
 				//first, convert our date objects to strings			
 				const startString = moment($scope.start).format('MMM YYYY');
 				const endString = moment($scope.end).format('MMM YYYY');
 			
 				const startIndex = allDates.indexOf(startString);
-				const endIndex = allDates.indexOf(endString);
+				const endIndex = allDates.indexOf(endString)+1;
 				//slice up the data arrays
 				myLineChart.data.labels = allDates.slice(startIndex, endIndex);
 				myLineChart.data.datasets[0].data = maxTemps.slice(startIndex, endIndex);
